@@ -1,0 +1,240 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+import sys
+import re
+import os
+import requests
+
+# =====================================
+# GDLite Compiler v5
+# Module name = nama file github
+# =====================================
+
+CACHE_DIR = ".gdl_modules"
+PYMODULE_DIR = "pymodules"
+os.makedirs(CACHE_DIR, exist_ok=True)
+os.makedirs(PYMODULE_DIR, exist_ok=True)
+
+init_file = os.path.join(PYMODULE_DIR, "__init__.py")
+if not os.path.exists(init_file):
+    open(init_file, "w").close()
+
+compiled_files = set()
+
+def ensure_gdl_file(path):
+    if not path.lower().endswith(".gdl"):
+        print("ERROR: Not .gdl files")
+        sys.exit(1)
+
+    if not os.path.exists(path):
+        print("ERROR: File not found:", path)
+        sys.exit(1)
+
+# -------------------------------------
+# sanitize python module name
+# -------------------------------------
+def sanitize(name: str):
+    name = name.replace("-", "_")
+    name = name.replace(".", "_")
+    name = re.sub(r"[^0-9a-zA-Z_]", "_", name)
+    return name
+
+
+# -------------------------------------
+# STRING INTERPOLATION
+# -------------------------------------
+def interpolate_string(text):
+    if "${" in text:
+        text = re.sub(r"\$\{(.*?)\}", r"{\1}", text)
+        return "f" + text
+    return text
+
+
+def compile_expression(expr: str):
+    expr = expr.strip()
+    if expr.startswith('"') and expr.endswith('"'):
+        return interpolate_string(expr)
+    return expr
+
+
+# -------------------------------------
+# DOWNLOAD FROM GITHUB
+# -------------------------------------
+def fetch_github_module(user, repo, file):
+    url = f"https://raw.githubusercontent.com/{user}/{repo}/main/{file}.gdl"
+    safe_file = sanitize(file)
+
+    local_path = os.path.join(CACHE_DIR, f"{safe_file}.gdl")
+
+    if not os.path.exists(local_path):
+        print("Downloading:", url)
+        r = requests.get(url)
+        if r.status_code != 200:
+            print("ERROR download:", url)
+            sys.exit(1)
+
+        with open(local_path, "w", encoding="utf-8") as f:
+            f.write(r.text)
+
+    return local_path, safe_file
+
+
+# -------------------------------------
+# COMPILE LINE
+# -------------------------------------
+def compile_line(line):
+    line = line.rstrip()
+
+    if not line.strip() or line.strip().startswith("#"):
+        return line
+
+    indent = re.match(r"\s*", line).group(0)
+    code = line.strip()
+
+    # python import
+    if code.startswith("import "):
+        return indent + code
+
+    # github import
+    if code.startswith("github "):
+        parts = code.split()
+        repo = parts[1]
+        user = parts[3]
+        file = parts[5]
+
+        path, module_name = fetch_github_module(user, repo, file)
+        compile_module(path)
+
+        return indent + f"from pymodules import {module_name}"
+
+    # var
+    if code.startswith("var "):
+        code = code[4:]
+        name, value = code.split("=", 1)
+        return indent + f"{name.strip()} = {compile_expression(value)}"
+
+    # func
+    if code.startswith("func "):
+        code = code[5:]
+        return indent + "def " + code
+
+    # return
+    if code.startswith("return "):
+        return indent + "return " + compile_expression(code[7:])
+
+    # print
+    if code.startswith("print"):
+        expr = compile_expression(code[6:])
+        return indent + code
+
+    # if / elif / while
+    for kw in ["if ", "elif ", "while "]:
+        if code.startswith(kw):
+            cond = compile_expression(code[len(kw):].rstrip(":"))
+            return indent + f"{kw}{cond}:"
+
+    if code.startswith("else:"):
+        return indent + code
+
+    # assignment
+    if "=" in code and not code.startswith(("if","elif","while")):
+        left, right = code.split("=",1)
+        return indent + f"{left.strip()} = {compile_expression(right)}"
+
+    return indent + code
+
+
+# -------------------------------------
+# COMPILE SOURCE
+# -------------------------------------
+def compile_gdl_to_python(source):
+    lines = source.split("\n")
+    out = []
+
+    out.append("# ===== GDLite Runtime =====")
+    out.append("import math")
+    out.append("import time")
+    out.append("")
+
+    for line in lines:
+        out.append(compile_line(line))
+
+    return "\n".join(out)
+
+
+# -------------------------------------
+# COMPILE FILE
+# -------------------------------------
+def compile_file(path):
+    ensure_gdl_file(path)
+
+    module_name = sanitize(os.path.basename(path).replace(".gdl",""))
+
+    if module_name in compiled_files:
+        return module_name
+
+    compiled_files.add(module_name)
+
+    with open(path, "r", encoding="utf-8") as f:
+        source = f.read()
+
+    py_code = compile_gdl_to_python(source)
+    
+    py_path = module_name + ".py"
+    with open(py_path, "w", encoding="utf-8") as f:
+        f.write(py_code)
+
+    return module_name
+
+
+def compile_module(path):
+    ensure_gdl_file(path)
+
+    module_name = sanitize(os.path.basename(path).replace(".gdl",""))
+
+    if module_name in compiled_files:
+        return module_name
+
+    compiled_files.add(module_name)
+
+    with open(path, "r", encoding="utf-8") as f:
+        source = f.read()
+
+    py_code = compile_gdl_to_python(source)
+    
+    py_path = os.path.join(PYMODULE_DIR, module_name + ".py")
+    with open(py_path, "w", encoding="utf-8") as f:
+        f.write(py_code)
+    
+    return module_name
+
+# -------------------------------------
+# MAIN
+# -------------------------------------
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: gdlc file.gdl")
+        return
+
+    input_file = sys.argv[1]
+    if input_file == "install":
+        if len(sys.argv) > 4:
+            gdlmodules = sys.argv[4]
+            repo = sys.argv[2]
+            user = sys.argv[3]
+            fetch_github_module(user, repo, gdlmodules)
+            ensure_gdl_file(f".gdl_modules/{gdlmodules}.gdl")
+            compile_file(f".gdl_modules/{gdlmodules}.gdl")
+            print("Modules compiled.")
+        else:
+            print("Usage: gdlc install repo user file")
+            return
+        
+    if input_file != "install":
+        ensure_gdl_file(input_file)
+        compile_file(input_file)
+        print("Compiled.")
+
+
+if __name__ == "__main__":
+    main()
