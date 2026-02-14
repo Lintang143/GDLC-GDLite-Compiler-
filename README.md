@@ -1,40 +1,54 @@
-Need:
--python3.12
+Need: python3
 
 how to import external modules in gdl:
-github yourreponame from yourgithubname import fileinmainbranchofyourrepo
-
+```GDLite
+github repo from user import file
+```
 how to print:
-print "string"
-	or
-print yourvariable
-
+```GDLite
+print("string")
+```
+```GDLite
+print(variable)
+```
+```GDLite
+print(f"string {variable}")
+```
 how to make variable:
+```GDLite
 var i = "hello"
-	or
+```
+```GDLite
 var i = 1
-	or
+```
+```GDLite
 var i = True
-	or
+```
+```GDLite
 var i = False
+```
+how to make func(def in python):
+```GDLite
+func hello():
+	print("Hello World!")
 
+hello()
+```
 how to run your .gdl files:
--gdlc yourfile.gdl
--python yourfile.py
 
+compile them first:
+```
+gdlc yourfile.gdl
+```
+then run the compiled file(python)
+```
+python yourfile.py
+```
+how to install:
+```curl
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler/main/install.sh | bash
+```
 how to install in termux:
--cd gdlcinstaller(or your own path)
--cd termux
--bash install.sh
-
-how to install in MSYS2:
--cd gdlcinstaller(or your own path)
--cd msys2
--bash install.sh
-
-how to install in macOS teminal:
--cd gdlcinstaller(or your own path)
--cd macos
--bash install.sh
-
-enjoy your experience :) report bug in my github(repo name:gdl compiler)
+```curl
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler/main/termux/install.sh | bash
+```
