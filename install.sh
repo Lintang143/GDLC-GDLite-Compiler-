@@ -9,4 +9,4 @@ cp /home/gdlite/gdlc /usr/bin
 rm -rf /home/gdlite
 
 echo "Installation complete!"
-echo "Type: gdlite"
+echo "Type: gdlc"
