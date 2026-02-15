@@ -46,9 +46,9 @@ python yourfile.py
 ```
 how to install:
 ```curl
-curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/install.sh | bash
 ```
 how to install in termux:
 ```curl
-curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler/main/termux/install.sh | bash
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/termux/install.sh | bash
 ```
