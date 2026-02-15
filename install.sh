@@ -1,5 +1,3 @@
-#!/data/data/com.termux/files/usr/bin/bash
-
 echo "Installing GDLite Compiler..."
 INSTALL_DIR="$PREFIX/bin"
 TMP_DIR="$HOME/.gdlite_tmp"
