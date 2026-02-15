@@ -1,14 +1,12 @@
 echo "Installing GDLite Compiler..."
-INSTALL_DIR="$PREFIX/bin"
-TMP_DIR="$HOME/.gdlite_tmp"
 
-rm -rf $TMP_DIR
-git clone https://github.com/Lintang143/GDLC-GDLite-Compiler $TMP_DIR
+rm -rf /home/gdlite
+git clone https://github.com/Lintang143/GDLC-GDLite-Compiler /home/gdlite
 
-chmod +x $TMP_DIR/gdlc
-cp $TMP_DIR/gdlc $INSTALL_DIR
+chmod +x /home/gdlite/gdlc
+cp /home/gdlite/gdlc /usr/bin
 
-rm -rf $TMP_DIR
+rm -rf /home/gdlite
 
 echo "Installation complete!"
 echo "Type: gdlite"
