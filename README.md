@@ -1,61 +1,185 @@
-Need: 
+
+
+✨ GDLite Compiler (gdlc)
+
+Compile a GDScript-like language → into Python.
+Import modules from GitHub, run on Linux & Termux, and write lightweight scripts that compile to Python.
+
+
+---
+
+🚀 Why GDLite?
+
+GDLite was created to:
+
+Write code with simpler syntax similar to GDScript
+
+Still use the Python ecosystem
+
+Import modules directly from GitHub
+
+Run easily on Termux / Linux
+
+
+Write lightweight code → get Python output.
+
+
+---
+
+⚡ Quick Demo
+
+File hello.gdl:
+
+```
+func main():
+    print("Hello from GDL!")
+
+main()
+```
+
+Compile:
+
+```
+gdlc hello.gdl
+```
+
+Run:
+
+```
+python hello.py
+```
+
+Output:
+
+```
+Hello from GDL!
+```
+
+
+---
+
+📦 Features
+
+Lightweight syntax inspired by GDScript
+
+Compiles to Python
+
+Import modules directly from GitHub
+
+CLI tool (gdlc)
+
+Termux support
+
+
+
+---
+
+📥 Installation
+
+Linux / Mac
+
+```
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/install.sh | bash
+```
+
+Termux
+
+```
+curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/termux/install.sh | bash
+```
+
+Requirements
 
 python3
 
-git(for the installation)
+git
 
-how to import external modules in gdl:
-```GDLite
-github repo from user import file
+
+
+---
+
+▶️ Running .gdl Files
+
+First compile:
+
 ```
-how to print:
-```GDLite
+gdlc yourfile.gdl
+```
+
+Then run the generated Python file:
+
+```
+python yourfile.py
+```
+
+
+---
+
+🧠 GDLite Basics
+
+Print
+
+```
 print("string")
-```
-```GDLite
 print(variable)
-```
-```GDLite
 print(f"string {variable}")
 ```
-how to make variable:
-```GDLite
+
+Variables
+
+```
 var i = "hello"
-```
-```GDLite
 var i = 1
-```
-```GDLite
 var i = True
-```
-```GDLite
 var i = False
 ```
-how to make func(def in python):
-```GDLite
+
+Functions
+
+```
 func hello():
-	print("Hello World!")
+    print("Hello World!")
 
 hello()
 ```
 
-the remaining logic is just like python.
+> The rest of the logic works like Python.
 
-how to run your .gdl files:
 
-compile them first:
-```
-gdlc yourfile.gdl
-```
-then run the compiled file(python)
-```
-python yourfile.py
-```
-how to install:
-```curl
-curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/install.sh | bash
-```
-how to install in termux:
-```curl
-curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/termux/install.sh | bash
-```
+
+
+---
+
+🌐 Import Modules from GitHub
+
+github repo from user import file
+
+Example usage will be added soon.
+
+
+---
+
+🛣️ Roadmap
+
+Simple package manager
+
+Better error messages
+
+Windows support
+
+Full syntax documentation
+
+
+
+---
+
+🤝 Contributing
+
+Pull requests and ideas are welcome!
+
+
+---
+
+⭐ Support the Project
+
+If you like this project, consider giving it a star ⭐
