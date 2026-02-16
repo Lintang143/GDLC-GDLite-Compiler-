@@ -1,4 +1,8 @@
-Need: python3
+Need: 
+
+python3
+
+git(for the installation)
 
 how to import external modules in gdl:
 ```GDLite
@@ -34,6 +38,9 @@ func hello():
 
 hello()
 ```
+
+the remaining logic is just like python.
+
 how to run your .gdl files:
 
 compile them first:
