@@ -4,7 +4,7 @@ rm -rf /home/gdlite
 git clone https://github.com/Lintang143/GDLC-GDLite-Compiler- /home/gdlite
 
 chmod +x /home/gdlite/gdlc
-cp /home/gdlite/gdlc /usr/bin
+cp /home/gdlite/gdlc /usr/bin/
 
 rm -rf /home/gdlite
 
