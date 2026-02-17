@@ -161,8 +161,15 @@ Example:
 
 ```
 github gdl-modules from Lintang143 import mathplus
+
+print(mathplus.plus(12,5))
 ```
 
+You can also import it without run your gdl files:
+
+```
+gdlc install gdl-modules Lintang143 mathplus
+```
 
 ---
 
