@@ -1,6 +1,7 @@
 
 
-✨ GDLite Compiler (gdlc)
+GDLite Compiler (gdlc)
+======================
 
 Compile a GDScript-like language → into Python.
 Import modules from GitHub, run on Linux & Termux, and write lightweight scripts that compile to Python.
@@ -8,25 +9,25 @@ Import modules from GitHub, run on Linux & Termux, and write lightweight scripts
 
 ---
 
-🚀 Why GDLite?
+### Why GDLite?
 
 GDLite was created to:
 
-Write code with simpler syntax similar to GDScript
+- Write code with simpler syntax similar to GDScript
 
-Still use the Python ecosystem
+- Still use the Python ecosystem
 
-Import modules directly from GitHub
+- Import modules directly from GitHub
 
-Run easily on Termux / Linux
+- Run easily on Termux / Linux
 
 
-Write lightweight code → get Python output.
+- Write lightweight code → get Python output.
 
 
 ---
 
-⚡ Quick Demo
+### Quick Demo
 
 File hello.gdl:
 
@@ -58,23 +59,23 @@ Hello from GDL!
 
 ---
 
-📦 Features
+### Features
 
-Lightweight syntax inspired by GDScript
+- Lightweight syntax inspired by GDScript
 
-Compiles to Python
+- Compiles to Python
 
-Import modules directly from GitHub
+- Import modules directly from GitHub
 
-CLI tool (gdlc)
+- CLI tool (gdlc)
 
-Termux support
+- Termux support
 
 
 
 ---
 
-📥 Installation
+### Installation
 
 Linux / Mac
 
@@ -88,25 +89,25 @@ Termux
 curl -sL https://raw.githubusercontent.com/Lintang143/GDLC-GDLite-Compiler-/main/termux/install.sh | bash
 ```
 
-Requirements
+### Requirements
 
-python3
+- python3
 
-git
+- git
 
 
 
 ---
 
-▶️ Running .gdl Files
+### Running .gdl Files
 
-First compile:
+- First compile:
 
 ```
 gdlc yourfile.gdl
 ```
 
-Then run the generated Python file:
+- Then run the generated Python file:
 
 ```
 python yourfile.py
@@ -115,9 +116,9 @@ python yourfile.py
 
 ---
 
-🧠 GDLite Basics
+### GDLite Basics
 
-Print
+- Print
 
 ```
 print("string")
@@ -125,7 +126,7 @@ print(variable)
 print(f"string {variable}")
 ```
 
-Variables
+- Variables
 
 ```
 var i = "hello"
@@ -134,7 +135,7 @@ var i = True
 var i = False
 ```
 
-Functions
+- Functions
 
 ```
 func hello():
@@ -150,36 +151,55 @@ hello()
 
 ---
 
-🌐 Import Modules from GitHub
+### Import Modules from GitHub
 
+```
 github repo from user import file
+```
 
-Example usage will be added soon.
+Example:
 
-
----
-
-🛣️ Roadmap
-
-Simple package manager
-
-Better error messages
-
-Windows support
-
-Full syntax documentation
-
+```
+github gdl-modules from Lintang143 import mathplus
+```
 
 
 ---
 
-🤝 Contributing
+### Import Python Modules
+
+```
+import module
+```
+
+Example:
+```
+import requests
+```
+
+---
+
+### Roadmap
+
+- Simple package manager
+
+- Better error messages
+
+- Windows support
+
+- Full syntax documentation
+
+
+
+---
+
+### Contributing
 
 Pull requests and ideas are welcome!
 
 
 ---
 
-⭐ Support the Project
+### Support the Project
 
 If you like this project, consider giving it a star ⭐
