@@ -13,7 +13,7 @@ Import modules from GitHub, run on Linux & Termux, and write lightweight scripts
 
 GDLite was created to:
 
-- Write code with simpler syntax similar to GDScript
+- Write code with syntax similar to GDScript *will more simpler when you use some modules
 
 - Still use the Python ecosystem
 
